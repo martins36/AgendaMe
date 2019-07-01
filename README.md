@@ -1,6 +1,6 @@
 # AgendaMe v1.0
 
-AgendaMe es una agenda simple para Android desarrollada en Kotlin
+AgendaMe es una agenda de contactos simple para Android desarrollada en Kotlin
 
 
 
