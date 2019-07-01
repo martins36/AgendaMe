@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         //cargar la lista
         val listItems: ArrayList<ContactModel> = contactsDBHelper.readAllContact()
+        listItems.sortBy { it.name }
         val listNames: ArrayList<String> = ArrayList()
         for (i in 0 until listItems.size)
             listNames.add(listItems[i].name)
