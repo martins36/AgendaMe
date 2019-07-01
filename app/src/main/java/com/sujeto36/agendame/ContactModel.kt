@@ -8,8 +8,9 @@ class ContactModel (
     val phone: String,
     val address: String,
     val name: String,
+    val alias: String,
     val status: Int) {
 
-    constructor(firstName: String, lastName: String, telephone: String, phone: String, address: String) :
-            this(0, firstName, lastName, telephone, phone, address, "", 0)
+    constructor(firstName: String, lastName: String, telephone: String, phone: String, address: String, alias: String) :
+            this(0, firstName, lastName, telephone, phone, address, "",alias, 0)
 }

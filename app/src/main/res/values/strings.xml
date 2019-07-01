@@ -8,6 +8,7 @@
     <string name="title_activity_edit_contact">Editar contacto</string>
     <string name="text_input_first_name">Nombre</string>
     <string name="text_input_last_name">Apellido</string>
+    <string name="text_input_alias">Alias</string>
     <string name="text_input_address">Domicilio</string>
     <string name="text_input_telephone">Teléfono</string>
     <string name="text_input_phone">Celular</string>

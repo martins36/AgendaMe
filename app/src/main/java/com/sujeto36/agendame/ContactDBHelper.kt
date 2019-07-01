@@ -24,13 +24,20 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
     fun insertContact(contact: ContactModel) {
         val db = writableDatabase
         val values = ContentValues()
+        val alias = contact.alias
 
         values.put(DBContract.UserEntry.COLUMN_FIRST_NAME, contact.firstName)
         values.put(DBContract.UserEntry.COLUMN_LAST_NAME, contact.lastName)
         values.put(DBContract.UserEntry.COLUMN_TELEPHONE, contact.telephone)
         values.put(DBContract.UserEntry.COLUMN_PHONE, contact.phone)
         values.put(DBContract.UserEntry.COLUMN_ADDRESS, contact.address)
-        values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
+        if (alias == "") {
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
+        }
+        else {
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName + " ($alias)")
+        }
+        values.put(DBContract.UserEntry.COLUMN_ALIAS, alias)
         values.put(DBContract.UserEntry.COLUMN_STATUS, 1)
 
         db.insert(DBContract.UserEntry.TABLE_NAME, null, values)
@@ -54,13 +61,20 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         val selection = DBContract.UserEntry.COLUMN_ID + " LIKE ?"
         val selectionArgs = arrayOf(contact.contactId.toString())
         val values = ContentValues()
+        val alias = contact.alias
 
         values.put(DBContract.UserEntry.COLUMN_FIRST_NAME, contact.firstName)
         values.put(DBContract.UserEntry.COLUMN_LAST_NAME, contact.lastName)
         values.put(DBContract.UserEntry.COLUMN_TELEPHONE, contact.telephone)
         values.put(DBContract.UserEntry.COLUMN_PHONE, contact.phone)
         values.put(DBContract.UserEntry.COLUMN_ADDRESS, contact.address)
-        values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
+        if (alias == "") {
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
+        }
+        else {
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName + " ($alias)")
+        }
+        values.put(DBContract.UserEntry.COLUMN_ALIAS, alias)
 
         db.update(DBContract.UserEntry.TABLE_NAME, values, selection, selectionArgs)
         db.close()
@@ -85,6 +99,7 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         var phone: String
         var address: String
         var name: String
+        var alias: String
         var status: Int
 
         if (cursor!!.moveToFirst()) {
@@ -96,9 +111,10 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
                 phone = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_PHONE))
                 address = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_ADDRESS))
                 name = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_NAME))
+                alias = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_ALIAS))
                 status = cursor.getInt(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_STATUS))
 
-                contacts.add(ContactModel(contactId, firstName, lastName, telephone, phone, address, name, status))
+                contacts.add(ContactModel(contactId, firstName, lastName, telephone, phone, address, name, alias, status))
                 cursor.moveToNext()
             }
         }
@@ -119,6 +135,7 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
                     DBContract.UserEntry.COLUMN_PHONE + " TEXT," +
                     DBContract.UserEntry.COLUMN_ADDRESS + " TEXT," +
                     DBContract.UserEntry.COLUMN_NAME + " TEXT," +
+                    DBContract.UserEntry.COLUMN_ALIAS + " TEXT," +
                     DBContract.UserEntry.COLUMN_STATUS + " INTEGER)"
 
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " +DBContract.UserEntry.TABLE_NAME

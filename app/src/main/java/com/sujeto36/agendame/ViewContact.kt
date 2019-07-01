@@ -47,6 +47,7 @@ class ViewContact : AppCompatActivity() {
             textPhone,
             textAddress,
             textName,
+            intent.extras.getString(EXTRA_ALIAS),
             0
         )
 
@@ -170,6 +171,7 @@ class ViewContact : AppCompatActivity() {
         private const val EXTRA_PHONE = "phone"
         private const val EXTRA_ADDRESS = "address"
         private const val EXTRA_NAME = "name"
+        private const val EXTRA_ALIAS = "alias"
 
         fun newIntent(context: Context, contactModel: ContactModel): Intent {
             val intent = Intent(context, ViewContact::class.java)
@@ -181,6 +183,7 @@ class ViewContact : AppCompatActivity() {
             intent.putExtra(EXTRA_PHONE, contactModel.phone)
             intent.putExtra(EXTRA_ADDRESS, contactModel.address)
             intent.putExtra(EXTRA_NAME, contactModel.name)
+            intent.putExtra(EXTRA_ALIAS, contactModel.alias)
 
             return intent
         }

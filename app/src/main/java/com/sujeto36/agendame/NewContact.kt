@@ -34,7 +34,8 @@ class NewContact : AppCompatActivity() {
                     text_input_last_name.text.toString(),
                     text_input_telephone.text.toString(),
                     text_input_phone.text.toString(),
-                    text_input_address.text.toString())
+                    text_input_address.text.toString(),
+                    text_input_alias.text.toString())
 
                 contactDBHelper.insertContact(contact)
                 Toast.makeText(this, "Contacto guardado", Toast.LENGTH_SHORT).show()

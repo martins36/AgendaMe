@@ -17,6 +17,7 @@ class EditContact : AppCompatActivity() {
     private lateinit var textAddress: String
     private lateinit var textTelephone: String
     private lateinit var textPhone: String
+    private lateinit var textAlias: String
     private var idContact: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,7 @@ class EditContact : AppCompatActivity() {
         textTelephone = intent.extras.getString(EXTRA_TELEPHONE)
         textPhone = intent.extras.getString(EXTRA_PHONE)
         textAddress = intent.extras.getString(EXTRA_ADDRESS)
+        textAlias = intent.extras.getString(EXTRA_ALIAS)
         contact = ContactModel(
             idContact,
             textFirstName,
@@ -39,6 +41,7 @@ class EditContact : AppCompatActivity() {
             textPhone,
             textAddress,
             intent.extras.getString(EXTRA_NAME),
+            textAlias,
             0
         )
 
@@ -47,9 +50,17 @@ class EditContact : AppCompatActivity() {
         text_input_telephone.setText(textTelephone)
         text_input_phone.setText(textPhone)
         text_input_address.setText(textAddress)
+        text_input_alias.setText(textAlias)
 
 
         button_save.setOnClickListener {
+
+            val alias = text_input_alias.text.toString()
+            val name: String
+            if (alias == "")
+                name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString()
+            else
+                name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString() + " ($alias)"
 
             newContact = ContactModel(
                 idContact,
@@ -58,7 +69,8 @@ class EditContact : AppCompatActivity() {
                 text_input_telephone.text.toString(),
                 text_input_phone.text.toString(),
                 text_input_address.text.toString(),
-                text_input_first_name.text.toString() + " " + text_input_last_name.text.toString(),
+                name,
+                alias,
                 0)
 
             contactDBHelper.updateContact(newContact)
@@ -89,6 +101,7 @@ class EditContact : AppCompatActivity() {
         private const val EXTRA_PHONE = "phone"
         private const val EXTRA_ADDRESS = "address"
         private const val EXTRA_NAME = "name"
+        private const val EXTRA_ALIAS = "alias"
 
         fun newIntent(context: Context, contactModel: ContactModel): Intent {
             val intent = Intent(context, EditContact::class.java)
@@ -100,6 +113,7 @@ class EditContact : AppCompatActivity() {
             intent.putExtra(EXTRA_PHONE, contactModel.phone)
             intent.putExtra(EXTRA_ADDRESS, contactModel.address)
             intent.putExtra(EXTRA_NAME, contactModel.name)
+            intent.putExtra(EXTRA_ALIAS, contactModel.alias)
 
             return intent
         }
