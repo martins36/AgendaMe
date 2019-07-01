@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AgendaMe</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_search_contact">Buscar contacto</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Borrar</string>
+    <string name="title_activity_new_contact">Nuevo contacto</string>
+    <string name="title_activity_edit_contact">Editar contacto</string>
+    <string name="text_input_first_name">Nombre</string>
+    <string name="text_input_last_name">Apellido</string>
+    <string name="text_input_address">Domicilio</string>
+    <string name="text_input_telephone">Teléfono</string>
+    <string name="text_input_phone">Celular</string>
+    <string name="text_button_save">Guardar</string>
+    <string name="text_button_cancel">Cancelar</string>
+    <string name="text_button_call">Llamar</string>
+    <string name="text_button_back">Volver</string>
+</resources>
