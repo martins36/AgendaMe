@@ -31,12 +31,14 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         values.put(DBContract.UserEntry.COLUMN_TELEPHONE, contact.telephone)
         values.put(DBContract.UserEntry.COLUMN_PHONE, contact.phone)
         values.put(DBContract.UserEntry.COLUMN_ADDRESS, contact.address)
-        if (alias == "") {
+
+        if (alias == "" && contact.lastName == "")
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.firstName)
+        else if (alias == "")
             values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
-        }
-        else {
+        else
             values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName + " ($alias)")
-        }
+
         values.put(DBContract.UserEntry.COLUMN_ALIAS, alias)
         values.put(DBContract.UserEntry.COLUMN_STATUS, 1)
 
@@ -68,12 +70,14 @@ class ContactDBHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         values.put(DBContract.UserEntry.COLUMN_TELEPHONE, contact.telephone)
         values.put(DBContract.UserEntry.COLUMN_PHONE, contact.phone)
         values.put(DBContract.UserEntry.COLUMN_ADDRESS, contact.address)
-        if (alias == "") {
+
+        if (alias == "" && contact.lastName == "")
+            values.put(DBContract.UserEntry.COLUMN_NAME, contact.firstName)
+        else if (alias == "")
             values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName)
-        }
-        else {
+        else
             values.put(DBContract.UserEntry.COLUMN_NAME, contact.lastName + " " + contact.firstName + " ($alias)")
-        }
+
         values.put(DBContract.UserEntry.COLUMN_ALIAS, alias)
 
         db.update(DBContract.UserEntry.TABLE_NAME, values, selection, selectionArgs)

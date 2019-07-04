@@ -57,7 +57,9 @@ class EditContact : AppCompatActivity() {
 
             val alias = text_input_alias.text.toString()
             val name: String
-            if (alias == "")
+            if (alias == "" && textLastName == "")
+                name = text_input_first_name.text.toString()
+            else if (alias == "")
                 name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString()
             else
                 name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString() + " ($alias)"

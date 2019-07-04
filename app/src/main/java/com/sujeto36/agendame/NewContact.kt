@@ -20,14 +20,11 @@ class NewContact : AppCompatActivity() {
             text_input_first_name.nonEmpty() {
                 text_input_first_name.error = "Campo requerido"
             }
-            text_input_last_name.nonEmpty() {
-                text_input_last_name.error = "Campo requerido"
-            }
             text_input_telephone.nonEmpty() {
                 text_input_telephone.error = "Campo requerido"
             }
 
-            if (text_input_first_name.nonEmpty() && text_input_last_name.nonEmpty() && text_input_telephone.nonEmpty()) {
+            if (text_input_first_name.nonEmpty() && text_input_telephone.nonEmpty()) {
 
                 val contact = ContactModel(
                     text_input_first_name.text.toString(),
