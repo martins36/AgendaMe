@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.wajahatkarim3.easyvalidation.core.view_ktx.nonEmpty
 import kotlinx.android.synthetic.main.activity_new_contact.*
 
 class EditContact : AppCompatActivity() {
@@ -60,11 +61,20 @@ class EditContact : AppCompatActivity() {
             if (alias == "" && textLastName == "")
                 name = text_input_first_name.text.toString()
             else if (alias == "")
-                name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString()
+                name = text_input_last_name.text.toString() + " " + text_input_first_name.text.toString()
             else
-                name = text_input_first_name.text.toString() + " " + text_input_last_name.text.toString() + " ($alias)"
+                name = text_input_last_name.text.toString() + " " + text_input_first_name.text.toString() + " ($alias)"
 
-            newContact = ContactModel(
+            text_input_first_name.nonEmpty() {
+                text_input_first_name.error = "Campo requerido"
+            }
+            text_input_telephone.nonEmpty() {
+                text_input_telephone.error = "Campo requerido"
+            }
+
+            if (text_input_first_name.nonEmpty() && text_input_telephone.nonEmpty()) {
+
+                newContact = ContactModel(
                 idContact,
                 text_input_first_name.text.toString(),
                 text_input_last_name.text.toString(),
@@ -75,13 +85,13 @@ class EditContact : AppCompatActivity() {
                 alias,
                 0)
 
-            contactDBHelper.updateContact(newContact)
-            Toast.makeText(this, "Contacto actualizado", Toast.LENGTH_SHORT).show()
-            val intent = ViewContact.newIntent(this, newContact)
-            startActivity(intent)
-            finish()
+                contactDBHelper.updateContact(newContact)
+                Toast.makeText(this, "Contacto actualizado", Toast.LENGTH_SHORT).show()
+                val intent = ViewContact.newIntent(this, newContact)
+                startActivity(intent)
+                finish()
+            }
         }
-
         button_cancel.setOnClickListener { finishActivity() }
     }
 
